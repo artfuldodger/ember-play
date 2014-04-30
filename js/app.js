@@ -36,8 +36,18 @@ App.Router.map(function() {
   });
 });
 
+App.IndexRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.findAll('product');
+  }
+});
+
 App.ProductsRoute = Ember.Route.extend({
   model: function() {
+    // Fetches records from http://example.com/products/order=title
+    // Require server to sort
+    // return this.store.find('product', { order: 'title' })
+
     return this.store.findAll('product');
   }
 });
@@ -50,8 +60,11 @@ App.ProductRoute = Ember.Route.extend({
 })
 */
 
-App.IndexController = Ember.Controller.extend({
-  productsCount: 6,
+App.IndexController = Ember.ArrayController.extend({
+  // productsCount: function() {
+  //   return this.get('length'); // Checks controller for length property, falls back to model
+  // }.property('length'), // Watches length property of controller and updates productsCount if it changes
+  productsCount: Ember.computed.alias('length'), // Shorthand for above
   logo: '/images/logo.png',
   time: function() {
     return (new Date()).toDateString();
@@ -65,6 +78,11 @@ App.AboutController = Ember.Controller.extend({
     status = sunday ? 'Closed' : 'Open';
     return status;
   }.property()
+});
+
+App.ProductsController = Ember.ArrayController.extend({
+  sortProperties: ['title'],
+  // sortAscending: false // Sorts ascending by default
 });
 
 App.Product.FIXTURES = [
