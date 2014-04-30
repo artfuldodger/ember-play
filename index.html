@@ -43,21 +43,23 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="products">
-    <h1>Products</h1>
-    {{#each product in model}}
-      <h2>{{product.title}}</h2>
-    {{/each}}
+    <div class="row">
+      <div class="col-sm-3">
+        {{#each}}
+          {{#link-to 'product' this classNames='list-group-item'}}
+            {{title}}
+          {{/link-to}}
+        {{/each}}
+      </div>
 
-    <ul class="list-unstyled col-md-8">
-      {{#each}}
-        <li class="row">
-          <img {{bind-attr src="image"}} class="img-thumbnail col-md-5" />
-          <h2>{{#link-to 'product' this classNames='list-group-item'}}{{title}}{{/link-to}}</h2>
-          <p class="product-description">{{description}}</p>
-          <p><button class="btn btn-success">Buy for ${{price}}</button></p>
-        </li>
-      {{/each}}
-    </ul>
+      <div class="col-sm-9">
+        {{outlet}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="products/index">
+    <p class="text-muted">Choose a product on the left.</p>
   </script>
 
   <script type="text/x-handlebars" data-template-name="product">

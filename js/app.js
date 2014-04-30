@@ -22,8 +22,9 @@ App.PRODUCTS = [
 App.Router.map(function() {
   this.route('about');
   this.route('about', { path: '/about_us' });
-  this.resource('products')
-  this.resource('product', { path: '/products/:title' })
+  this.resource('products', function() {
+    this.resource('product', { path: '/:title' })
+  });
 });
 
 App.ProductsRoute = Ember.Route.extend({
