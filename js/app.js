@@ -66,6 +66,14 @@ App.IndexController = Ember.ArrayController.extend({
   // }.property('length'), // Watches length property of controller and updates productsCount if it changes
   productsCount: Ember.computed.alias('length'), // Shorthand for above
   logo: '/images/logo.png',
+  // onSale: function() {
+  //   return this.filter(function(product) {
+  //     return product.get('isOnSale');
+  //   });
+  // }.property(),
+  onSale: function() { // Shorthand for above
+    return this.filterBy('isOnSale').slice(0,3); // Second param to filterBy defaults to true
+  }.property('@each.isOnSale'), // Monitor each one's isOnSale property
   time: function() {
     return (new Date()).toDateString();
   }.property()
