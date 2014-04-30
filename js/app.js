@@ -9,7 +9,14 @@ App.Product = DS.Model.extend({
   price: DS.attr('number'),
   description: DS.attr('string'),
   isOnSale: DS.attr('boolean'),
-  image: DS.attr('string')
+  image: DS.attr('string'),
+  reviews: DS.hasMany('review', { async: true })
+});
+
+App.Review = DS.Model.extend({
+  text: DS.attr('string'),
+  reviewedAt: DS.attr('date'),
+  product: DS.belongsTo('product')
 });
 
 /* Ember data:
@@ -67,7 +74,8 @@ App.Product.FIXTURES = [
     price:       99,
     description: 'Flint is a thing',
     isOnSale:    true,
-    image:       'flint.png'
+    image:       'flint.png',
+    reviews:     [100, 101]
   },
   {
     id:          2,
@@ -76,5 +84,18 @@ App.Product.FIXTURES = [
     description: 'Kindling is a thing',
     isOnSale:    false,
     image:       'kindling.png'
+  }
+]
+
+App.Review.FIXTURES = [
+  {
+    id: 100,
+    product: 1,
+    text: 'Started a fire in no time!'
+  },
+  {
+    id: 101,
+    product: 1,
+    text: 'Not the brightest flame, but warm.'
   }
 ]
