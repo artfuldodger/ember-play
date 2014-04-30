@@ -43,6 +43,10 @@
         <p class="product-description">{{description}}</p>
         <p>{{#link-to 'product' this class='btn btn-success'}}
         Buy for ${{price}}{{/link-to}}</p>
+
+        <span class="label label-warning">
+          {{#link-to 'products.onsale'}}On Sale{{/link-to}}
+        </span>
       </div>
     {{/each}}
 
@@ -68,6 +72,23 @@
         {{outlet}}
       </div>
     </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="products/onsale">
+    <h2>On Sale Products</h2>
+    <ul class="list-unstyled">
+      {{#each}}
+        <li class='row'>
+        <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5'/>
+        <div class='col-sm-7'>
+          <h2>{{title}}</h2>
+          <p class="product-description">{{description}}</p>
+          <p>{{#link-to 'product' this class='btn btn-success'}}
+            Buy for ${{price}}{{/link-to}}</p>
+        </div>
+        </li>
+      {{/each}}
+    </ul>
   </script>
 
   <script type="text/x-handlebars" data-template-name="products/index">

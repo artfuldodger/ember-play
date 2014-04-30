@@ -33,6 +33,7 @@ App.Router.map(function() {
   this.route('about', { path: '/about_us' });
   this.resource('products', function() {
     this.resource('product', { path: '/:product_id' });
+    this.route('onsale');
   });
 });
 
@@ -59,6 +60,13 @@ App.ProductRoute = Ember.Route.extend({
   }
 })
 */
+
+App.ProductsOnsaleRoute = Ember.Route.extend({
+  model: function() {
+    // modelFor returns the model from the given route
+    return this.modelFor('products').filterBy('isOnSale');
+  }
+});
 
 App.IndexController = Ember.ArrayController.extend({
   // productsCount: function() {
