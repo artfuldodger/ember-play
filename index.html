@@ -35,7 +35,7 @@
     <p>Rendered on {{time}}.</p>
 
     {{#each onSale}}
-      {{product-details product=this classNames='col-sm-4'}}
+      {{product-details product=this tagName='div' classNames='col-sm-4'}}
     {{/each}}
   </script>
 
@@ -51,6 +51,10 @@
         {{#link-to 'products.onsale'}}On Sale{{/link-to}}
       </span>
     </div>
+
+    {{#if hasReviews}}
+      <p class='text-muted'>Read all reviews ({{reviewsCount}}).</p>
+    {{/if}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="about">
@@ -79,7 +83,7 @@
     <h2>On Sale Products</h2>
     <ul class="list-unstyled">
       {{#each}}
-        {{product-details product=this tagName='li' classNames='row'}}
+        {{product-details product=this}}
       {{/each}}
     </ul>
   </script>
@@ -89,26 +93,24 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="product">
-    <div class="row">
-      <div class="col-md-7">
-        <h2>{{title}}</h2>
-        <h3 class="text-success">${{price}}</h3>
-        <p class="text-muted">{{description}}</p>
+    <div class="col-md-7">
+      <h2>{{title}}</h2>
+      <h3 class="text-success">${{price}}</h3>
+      <p class="text-muted">{{description}}</p>
 
-        <h3>Reviews</h3>
-        <ul>
-          {{#each reviews}}
-            <li>{{text}}</li>
-          {{else}}
-            <li><p class="text-muted">
-              <em>No reviews yet. Be the first to write one!</em>
-            </p></li>
-          {{/each}}
-        </ul>
-      </div>
-      <div class="col-md-5">
-        <img {{bind-attr src="image"}} class="img-thumbnail img-rounded" />
-      </div>
+      <h3>Reviews</h3>
+      <ul>
+        {{#each reviews}}
+          <li>{{text}}</li>
+        {{else}}
+          <li><p class="text-muted">
+            <em>No reviews yet. Be the first to write one!</em>
+          </p></li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="col-md-5">
+      <img {{bind-attr src="image"}} class="img-thumbnail img-rounded" />
     </div>
   </script>
 

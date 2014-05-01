@@ -13,6 +13,15 @@ App.Product = DS.Model.extend({
   reviews: DS.hasMany('review', { async: true })
 });
 
+App.ProductDetailsComponent = Ember.Component.extend({
+  reviewsCount: Ember.computed.alias('product.reviews.length'),
+  tagName: 'li',
+  classNames: ['row'],
+  hasReviews: function() {
+    return this.get('reviewsCount') > 0;
+  }.property('reviewsCount')
+});
+
 App.Review = DS.Model.extend({
   text: DS.attr('string'),
   reviewedAt: DS.attr('date'),
@@ -100,6 +109,12 @@ App.ProductsController = Ember.ArrayController.extend({
   sortProperties: ['title'],
   // sortAscending: false // Sorts ascending by default
 });
+
+App.ProductView = Ember.View.extend({
+  classNames: ['row'],
+  classNameBindings: ['isOnSale'], // adds class 'is-on-sale' is isOnSale property is true
+  isOnSale: Ember.computed.alias('controller.isOnSale') // Access to model property via controller
+})
 
 App.Product.FIXTURES = [
   {
