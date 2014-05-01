@@ -98,20 +98,24 @@
       <h3 class="text-success">${{price}}</h3>
       <p class="text-muted">{{description}}</p>
 
-      <h3>Reviews</h3>
-      <ul>
-        {{#each reviews}}
-          <li>{{text}}</li>
-        {{else}}
-          <li><p class="text-muted">
-            <em>No reviews yet. Be the first to write one!</em>
-          </p></li>
-        {{/each}}
-      </ul>
+      {{partial 'reviews'}}
     </div>
     <div class="col-md-5">
       <img {{bind-attr src="image"}} class="img-thumbnail img-rounded" />
     </div>
+  </script>
+
+  <script type='text/x-handlebars' data-template-name='_reviews'>
+    <h3>Reviews</h3>
+    <ul>
+      {{#each reviews}}
+        <li>{{text}}</li>
+      {{else}}
+        <li><p class="text-muted">
+          <em>No reviews yet. Be the first to write one!</em>
+        </p></li>
+      {{/each}}
+    </ul>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
