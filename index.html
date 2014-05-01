@@ -99,6 +99,14 @@
       <p class="text-muted">{{description}}</p>
 
       {{render 'reviews' reviews}}
+      <div class="new-review">
+        <h3>Review {{title}}</h3>
+        {{#if text}}
+          <p class="text-muted">{{text}}</p>
+        {{/if}}
+        {{textarea valueBinding='text'}}
+        <button {{action 'createReview'}} class='btn-primary'>Review</button>
+      </div>
     </div>
     <div class="col-md-5">
       <img {{bind-attr src="image"}} class="img-thumbnail img-rounded" />

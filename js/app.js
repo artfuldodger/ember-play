@@ -115,6 +115,27 @@ App.ProductsController = Ember.ArrayController.extend({
   // sortAscending: false // Sorts ascending by default
 });
 
+App.ProductController = Ember.ObjectController.extend({
+  text: '', // If left off, the property would be set on the model
+  actions: {
+    createReview: function() {
+      // Build a new Review object
+      var review = this.store.createRecord('review', {
+        text: this.get('text'),
+        product: this.get('model'),
+        reviewedAt: new Date()
+      });
+      var controller = this; // Reference for callback
+
+      // Save the review
+      review.save().then(function(review) {
+        controller.set('text', '');
+        controller.get('model.reviews').addObject(review);
+      });
+    }
+  }
+});
+
 App.ProductView = Ember.View.extend({
   classNames: ['row'],
   classNameBindings: ['isOnSale'], // adds class 'is-on-sale' is isOnSale property is true
