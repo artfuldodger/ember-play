@@ -117,15 +117,20 @@ App.ProductsController = Ember.ArrayController.extend({
 
 App.ProductController = Ember.ObjectController.extend({
   text: '', // If left off, the property would be set on the model
+  review: function() {
+    return this.store.createRecord('review', {
+      product: this.get('model')
+    });
+  }.property('model'),
+  isNotReviewed: Ember.computed.alias('review.isNew'),
   actions: {
     createReview: function() {
       // Build a new Review object
-      var review = this.store.createRecord('review', {
-        text: this.get('text'),
-        product: this.get('model'),
-        reviewedAt: new Date()
-      });
       var controller = this; // Reference for callback
+      this.get('review').set('reviewedAt', new Date());
+      this.get('review').save().then(function(review) {
+        controller.get('model.reviews').addObject(review);
+      })
 
       // Save the review
       review.save().then(function(review) {
