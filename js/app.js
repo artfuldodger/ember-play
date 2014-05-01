@@ -105,6 +105,11 @@ App.AboutController = Ember.Controller.extend({
   }.property()
 });
 
+App.ReviewsController = Ember.ArrayController.extend({
+  sortProperties: ['reviewedAt'],
+  sortAscending: false
+});
+
 App.ProductsController = Ember.ArrayController.extend({
   sortProperties: ['title'],
   // sortAscending: false // Sorts ascending by default
